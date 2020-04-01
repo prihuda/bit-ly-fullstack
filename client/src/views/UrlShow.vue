@@ -1,7 +1,7 @@
 <template>
   <div v-if="created" class="container">
     <header class="jumbotron">
-      <p class="top-date">CREATED {{stat.date}}</p>
+      <p class="top-date">CREATED {{localTime(stat.date)}}</p>
       <h3>
         <strong>{{stat.title}}</strong>
       </h3>
@@ -14,14 +14,16 @@
     <p>
       Unique Visitors: {{stat.uniqueClickthroughs}}
     </p>
-    <div style="text-align:right">
+    <div style="text-align: right;">
       <v-md-date-range-picker
-      opens="left"
+      opens="right"
       :start-date="startdate"
       :end-date="enddate"
       @change="handleChange"
       ></v-md-date-range-picker>
       <button v-on:click="filter" class="btn btn-primary">Filter</button>
+    </div>
+    <div style="margin: 20px">
     </div>
     <table class="table table-condensed">
       <thead>
@@ -37,7 +39,7 @@
           <td>{{ idx + 1 }}</td>
           <td>{{ item.ip_address }}</td>
           <td>{{ item.referrer_url }}</td>
-          <td>{{ Date(item.createdAt).toLocaleString() }}</td>
+          <td>{{ localTime(item.createdAt) }}</td>
         </tr>
       </tbody>
     </table>
@@ -64,6 +66,9 @@ export default {
       message: ''
     };
   },
+  computed: {
+    
+  },
   created() {
     this.id = this.$route.params.id;
   },
@@ -89,8 +94,12 @@ export default {
     );
   },
   methods: {
-    handleChange (values) {
+    handleChange(values) {
       this.values = values
+    },
+    localTime: function(date) {
+      let d = new Date(date);
+      return d.toLocaleString();
     },
     filter() {
       UserService.searchDate(this.id, this.values[0], this.values[1]).then(

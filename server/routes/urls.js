@@ -123,11 +123,8 @@ urlRoutes.get("/:id", authenticate, async (req, res) => {
 urlRoutes.get("/:id/search", authenticate, async (req, res) => {
 	let { id } = req.params;
 	let user_id = req.session.user_id;
-	let b1 = req.query.dates1.split(/\D+/);
-	let b2 = req.query.dates2.split(/\D+/);
-	let date1 = new Date(b1[1], b1[2]-1, b1[3]-1);
-	let date2 = new Date(b2[1], b2[2]-1, b2[3]-1);
-	
+	let date1 = new Date(req.query.dates1.slice(1, -1));
+	let date2 = new Date(req.query.dates2.slice(1, -1));
 	let err, url, visitors;
 	const Op = require('../models').Sequelize.Op;
 	
@@ -139,7 +136,7 @@ urlRoutes.get("/:id/search", authenticate, async (req, res) => {
 	if (err) {
 		return res.status(500).send({ message: err.message });
 	}
-	console.log('date1', date1);
+	
 	[err, visitors] = await to(Visitor.findAll({
 		where: {
 			UrlId: url['id'],
