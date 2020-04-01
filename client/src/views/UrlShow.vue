@@ -37,7 +37,7 @@
           <td>{{ idx + 1 }}</td>
           <td>{{ item.ip_address }}</td>
           <td>{{ item.referrer_url }}</td>
-          <td>{{ item.createdAt }}</td>
+          <td>{{ Date(item.createdAt).toLocaleString() }}</td>
         </tr>
       </tbody>
     </table>
@@ -48,20 +48,19 @@
 
 <script>
 import UserService from '../services/user.service';
-//import moment from 'moment';
-import 'vue2-daterange-picker/dist/vue2-daterange-picker.css';
 
 export default {
   name: 'url',
   data() {
+    let d = new Date().toUTCString();
     return {
       id: 0,
       stat: '',
       url: '',
       values: [],
       created: false,
-      startdate: Date.now(),
-      enddate: Date.now(),
+      startdate: d,
+      enddate: d,
       message: ''
     };
   },
@@ -94,13 +93,9 @@ export default {
       this.values = values
     },
     filter() {
-      //this.message = 'fuckkkk';
       UserService.searchDate(this.id, this.values[0], this.values[1]).then(
         response => {
         this.stat.visitors = response.data;
-        //this.url = process.env.VUE_APP_ROOT_API+'u/'+this.stat.shortURL;
-        //this.created = true;
-        //this.message = 'fuckkkk';
       },
       error => {
         if (error == 'Error: Request failed with status code 401') {

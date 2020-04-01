@@ -1,5 +1,4 @@
 import axios from 'axios';
-import authHeader from './auth-header';
 
 const API_URL = process.env.VUE_APP_ROOT_API;
 
@@ -51,13 +50,6 @@ class UserService {
       });
   }
   
-  getModeratorBoard() {
-    return axios.get(API_URL + 'mod', { headers: authHeader() });
-  }
-
-  getAdminBoard() {
-    return axios.get(API_URL + 'admin', { headers: authHeader() });
-  }
 }
 
 export default new UserService();

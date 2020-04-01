@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:3000/users/';
+const API_URL = process.env.VUE_APP_ROOT_API + 'users/';
 
 class AuthService {
   login(user) {

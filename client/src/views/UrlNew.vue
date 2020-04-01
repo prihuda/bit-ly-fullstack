@@ -90,8 +90,6 @@ export default {
         if (isValid) {
           UserService.addUrl(this.url).then(
             response => {
-              /* this.content = response.data;
-              this.$router.push('/profile'); */
               this.$router.push({ path: `/urls/${response.data.shortUrl}` })
             },
             error => {

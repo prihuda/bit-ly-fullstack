@@ -28,24 +28,6 @@ export const router = new Router({
       component: Register
     },
     {
-      path: '/profile',
-      name: 'profile',
-      // lazy-loaded
-      component: () => import('./views/Profile.vue')
-    },
-    {
-      path: '/admin',
-      name: 'admin',
-      // lazy-loaded
-      component: () => import('./views/BoardAdmin.vue')
-    },
-    {
-      path: '/mod',
-      name: 'moderator',
-      // lazy-loaded
-      component: () => import('./views/BoardModerator.vue')
-    },
-    {
       path: '/urls',
       name: 'urls',
       // lazy-loaded

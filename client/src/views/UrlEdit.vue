@@ -85,8 +85,6 @@ export default {
         if (isValid) {
           UserService.editUrl(this.url, this.id).then(
             () => {
-              /* this.content = response.data;
-              this.$router.push('/profile'); */
               this.$router.push({ path: `/urls/${this.id}` })
             },
             error => {
