@@ -1,0 +1,71 @@
+<%- include('partials/_header') %>
+
+    <div class="container">
+      <% if (user_id) { %>
+      <h3><%= title %></h3>
+      <a href="../u/<%= shortURL %>" target="_blank"><h3><%= shortURL %></h3></a>
+      <b><%= longURL %></b>
+      <br>
+      <br>
+      <b>Date created:</b> <%= date %>
+    </div>
+    <br>
+    <div class="container">
+      <h4>Statistics</h4>
+      <b>Total Clickthroughs</b>: <%= clickthroughs %>
+      <br>
+      <b>Unique Visitors</b>: <%= uniqueClickthroughs %>
+    </div>
+    <br>
+    <div class="container">
+      <h4>Visitor Log</h4>
+      <table class="table table-condensed">
+				<thead>
+					<tr>
+						<th>No.</th>
+						<th>IP Address</th>
+						<th>Referrer URL</th>
+						<th>Date Visited</th>
+					</tr>
+				</thead>
+      <% for (i in visitors) { %>
+				<tbody>
+					<tr>
+						<td><%= 1+parseInt(i) %></td>
+						<td><%= visitors[i].ip_address %></td>
+						<td><%= visitors[i].referrer_url %></td>
+						<td><%= visitors[i].createdAt %></td>
+					</tr>
+				</tbody>
+          
+      <% } %>
+  </table>
+    </div>
+    <br>
+    <div class="container">
+      <h4>Update</h4>
+      <p>
+        <form method="POST" class="form-inline" action="/urls/<%= shortURL %>?_method=PUT">
+          <input type="text" style="width: 50%;" class="form-control" id="newURL" name="newURL" placeholder="<%= longURL %>">
+          <button type="submit" class="btn btn-primary">Update</button>
+        </form>
+      </p>
+    </div>
+      <br>
+      <br>
+    <div class="container">
+      <p>
+        <a href="/urls"><button type="text" class="btn btn-primary form-inline">Back</button></a>
+        <form method="POST" action="/urls/<%= shortURL %>?_method=DELETE">
+          <input type="submit" class="btn btn-danger form-inline" value="Delete this Short URL" />
+        </form>
+      </p>
+    </div>
+      <% } %>
+
+      <% if (!user_id) { %>
+        Register or login above!
+      <% } %>
+    </div>
+  </body>
+</html>

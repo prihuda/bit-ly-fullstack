@@ -1,0 +1,26 @@
+<%- include('partials/_header') %>
+
+    <div class="container">
+			<h3 style="margin-top: unset;">Add New URL</h3>
+      <form action="/urls/new" method="POST">
+				<div class="form-group">
+					<label for="title">Title:</label>
+					<input id="title" type="text" name="title" style="width: 70%;" class="form-control" placeholder="Insert the target URL's title">			
+				</div>
+				<div class="form-group">
+					<label for="longURL">Target URL:</label>
+					<input id="longURL" type="text" name="longURL" style="width: 70%;" class="form-control" placeholder="http://">
+				</div>
+				<div class="form-group">
+					<label for="shortURL">Short URL:</label><label style="font-weight: normal; color: #8e9ba7;">&emsp;(Max. 6 characters)</label>
+					<input type="text" id="shortURL" maxlength="6" name="shortURL" style="width: 70%;" class="form-control" value="<%= short_url %>" readonly="readonly">
+				</div>
+				<div class="checkbox">
+					<label><input type="checkbox" onclick="var su=document.getElementById('shortURL'); if(this.checked) {su.readOnly=true;su.value='<%= short_url %>'}else{su.readOnly=false;su.focus();su.value=''}" name="auto" checked> Auto Generated</label>
+				</div>
+        <input type="submit" class="btn btn-primary" value="Submit">
+				
+      </form>
+    </div>
+  </body>
+</html>
